@@ -3,7 +3,7 @@ function login() {
   
     if (username !== "") {
       localStorage.setItem("quizUser", username);
-      window.location.href = "home.html";
+      window.location.href = "htmlcssjs-selection.html";
     } else {
       alert("Please enter your name to continue.");
     }
