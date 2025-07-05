@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript Beginner Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>JavaScript Beginner Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which company developed JavaScript?",
+        answers: [
+          { text: "Netscape", correct: true },
+          { text: "Microsoft", correct: false },
+          { text: "Google", correct: false },
+          { text: "Apple", correct: false }
+        ]
+      },
+      {
+        question: "What keyword is used to declare a variable in JavaScript?",
+        answers: [
+          { text: "var", correct: true },
+          { text: "int", correct: false },
+          { text: "String", correct: false },
+          { text: "declare", correct: false }
+        ]
+      },
+      {
+        question: "Which symbol is used for single-line comments in JavaScript?",
+        answers: [
+          { text: "//", correct: true },
+          { text: "/*", correct: false },
+          { text: "#", correct: false },
+          { text: "<!--", correct: false }
+        ]
+      },
+      {
+        question: "Which method converts a JSON string to a JavaScript object?",
+        answers: [
+          { text: "JSON.parse()", correct: true },
+          { text: "JSON.stringify()", correct: false },
+          { text: "JSON.objectify()", correct: false },
+          { text: "parse.JSON()", correct: false }
+        ]
+      },
+      {
+        question: "What is the output of 2 + '2' in JavaScript?",
+        answers: [
+          { text: "22", correct: true },
+          { text: "4", correct: false },
+          { text: "NaN", correct: false },
+          { text: "undefined", correct: false }
+        ]
+      },
+      {
+        question: "What is the default value of an uninitialized variable?",
+        answers: [
+          { text: "undefined", correct: true },
+          { text: "null", correct: false },
+          { text: "0", correct: false },
+          { text: "false", correct: false }
+        ]
+      },
+      {
+        question: "How do you define a function in JavaScript?",
+        answers: [
+          { text: "function myFunc() {}", correct: true },
+          { text: "def myFunc()", correct: false },
+          { text: "function:myFunc {}", correct: false },
+          { text: "create myFunc()", correct: false }
+        ]
+      },
+      {
+        question: "Which operator is used to compare both value and type?",
+        answers: [
+          { text: "===", correct: true },
+          { text: "==", correct: false },
+          { text: "!=", correct: false },
+          { text: "=", correct: false }
+        ]
+      },
+      {
+        question: "Which object represents the browser window?",
+        answers: [
+          { text: "window", correct: true },
+          { text: "document", correct: false },
+          { text: "screen", correct: false },
+          { text: "navigator", correct: false }
+        ]
+      },
+      {
+        question: "How do you write an alert box in JavaScript?",
+        answers: [
+          { text: "alert('Hello!')", correct: true },
+          { text: "msg('Hello!')", correct: false },
+          { text: "alertBox('Hello!')", correct: false },
+          { text: "show('Hello!')", correct: false }
+        ]
+      }
+    ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

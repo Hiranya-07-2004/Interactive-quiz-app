@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Java Beginner Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Java Beginner Quiz</h1>
+    <div id="question-container">
+      <div id="question">Question text</div>
+      <div id="answer-buttons" class="btn-container"></div>
+    </div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+  <script>
+    const beginnerJavaQuestions = [
+      {
+        question: "What does JVM stand for?",
+        answers: [
+          { text: "Java Virtual Machine", correct: true },
+          { text: "Java Vendor Model", correct: false },
+          { text: "Java Visual Memory", correct: false },
+          { text: "None of these", correct: false }
+        ]
+      },
+      {
+        question: "Which of these is a Java keyword?",
+        answers: [
+          { text: "interface", correct: true },
+          { text: "string", correct: false },
+          { text: "Float", correct: false },
+          { text: "unsigned", correct: false }
+        ]
+      },
+      {
+        question: "Which method is the entry point of a Java program?",
+        answers: [
+          { text: "main()", correct: true },
+          { text: "run()", correct: false },
+          { text: "start()", correct: false },
+          { text: "init()", correct: false }
+        ]
+      },
+      {
+        question: "Java is a ___ language.",
+        answers: [
+          { text: "Platform-dependent", correct: false },
+          { text: "Platform-independent", correct: true },
+          { text: "Procedural", correct: false },
+          { text: "Machine-level", correct: false }
+        ]
+      },
+      {
+        question: "Which of these is not a primitive type in Java?",
+        answers: [
+          { text: "int", correct: false },
+          { text: "Boolean", correct: true },
+          { text: "char", correct: false },
+          { text: "double", correct: false }
+        ]
+      },
+      {
+        question: "Which statement is used to stop a loop?",
+        answers: [
+          { text: "stop", correct: false },
+          { text: "exit", correct: false },
+          { text: "break", correct: true },
+          { text: "return", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword is used to inherit a class?",
+        answers: [
+          { text: "extends", correct: true },
+          { text: "implements", correct: false },
+          { text: "inherits", correct: false },
+          { text: "super", correct: false }
+        ]
+      },
+      {
+        question: "What is the size of int in Java?",
+        answers: [
+          { text: "16 bits", correct: false },
+          { text: "32 bits", correct: true },
+          { text: "64 bits", correct: false },
+          { text: "Depends on platform", correct: false }
+        ]
+      },
+      {
+        question: "Which package contains the Random class?",
+        answers: [
+          { text: "java.util", correct: true },
+          { text: "java.lang", correct: false },
+          { text: "java.random", correct: false },
+          { text: "java.io", correct: false }
+        ]
+      },
+      {
+        question: "To create an object of class Car, use:",
+        answers: [
+          { text: "Car obj = new Car();", correct: true },
+          { text: "Car obj();", correct: false },
+          { text: "new Car = obj();", correct: false },
+          { text: "create Car obj = Car();", correct: false }
+        ]
+      }
+    ];
+  
+    // Quiz logic
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+  
+    let currentQuestionIndex = 0;
+    let score = 0;
+  
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+  
+    function showQuestion() {
+      resetState();
+      const question = beginnerJavaQuestions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+  
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) {
+          button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+  
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+  
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+  
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+  
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+  
+      nextButton.style.display = "inline-block";
+    }
+  
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${beginnerJavaQuestions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+  
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < beginnerJavaQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+  
+    startQuiz();
+  </script>
+  
+   </body>
+</html>

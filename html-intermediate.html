@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Intermediate Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>HTML Intermediate Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+<script>
+const questions = [
+  {
+    question: "Which tag is used to define a table in HTML?",
+    answers: [
+      { text: "<table>", correct: true },
+      { text: "<tab>", correct: false },
+      { text: "<tbl>", correct: false },
+      { text: "<td>", correct: false }
+    ]
+  },
+  {
+    question: "What does the <em> tag do?",
+    answers: [
+      { text: "Italicizes text", correct: true },
+      { text: "Bold text", correct: false },
+      { text: "Underlines text", correct: false },
+      { text: "Strikethrough text", correct: false }
+    ]
+  },
+  {
+    question: "Which tag defines a form in HTML?",
+    answers: [
+      { text: "<form>", correct: true },
+      { text: "<input>", correct: false },
+      { text: "<submit>", correct: false },
+      { text: "<fieldset>", correct: false }
+    ]
+  },
+  {
+    question: "Which attribute is used with <input> to define a placeholder?",
+    answers: [
+      { text: "placeholder", correct: true },
+      { text: "alt", correct: false },
+      { text: "title", correct: false },
+      { text: "hint", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to embed JavaScript in HTML?",
+    answers: [
+      { text: "<script>", correct: true },
+      { text: "<js>", correct: false },
+      { text: "<javascript>", correct: false },
+      { text: "<embed-js>", correct: false }
+    ]
+  },
+  {
+    question: "How can you open a link in a new tab?",
+    answers: [
+      { text: 'target="_blank"', correct: true },
+      { text: 'href="_blank"', correct: false },
+      { text: 'target="tab"', correct: false },
+      { text: 'open="new"', correct: false }
+    ]
+  },
+  {
+    question: "What does the <thead> element define?",
+    answers: [
+      { text: "Header of a table", correct: true },
+      { text: "Body of a table", correct: false },
+      { text: "Footer of a table", correct: false },
+      { text: "Row of a table", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to embed audio?",
+    answers: [
+      { text: "<audio>", correct: true },
+      { text: "<sound>", correct: false },
+      { text: "<media>", correct: false },
+      { text: "<voice>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to display preformatted text?",
+    answers: [
+      { text: "<pre>", correct: true },
+      { text: "<code>", correct: false },
+      { text: "<text>", correct: false },
+      { text: "<block>", correct: false }
+    ]
+  },
+  {
+    question: "Which attribute is used for tooltips?",
+    answers: [
+      { text: "title", correct: true },
+      { text: "hover", correct: false },
+      { text: "tooltip", correct: false },
+      { text: "label", correct: false }
+    ]
+  },
+  {
+    question: "Which tag creates a dropdown?",
+    answers: [
+      { text: "<select>", correct: true },
+      { text: "<dropdown>", correct: false },
+      { text: "<input type='dropdown'>", correct: false },
+      { text: "<option>", correct: false }
+    ]
+  },
+  {
+    question: "What does the <abbr> tag define?",
+    answers: [
+      { text: "Abbreviation", correct: true },
+      { text: "Alert", correct: false },
+      { text: "Abstract", correct: false },
+      { text: "Anchor", correct: false }
+    ]
+  },
+  {
+    question: "What does the <fieldset> tag group?",
+    answers: [
+      { text: "Related form fields", correct: true },
+      { text: "Related images", correct: false },
+      { text: "Headers", correct: false },
+      { text: "List items", correct: false }
+    ]
+  },
+  {
+    question: "Which tag defines a caption for a table?",
+    answers: [
+      { text: "<caption>", correct: true },
+      { text: "<title>", correct: false },
+      { text: "<head>", correct: false },
+      { text: "<label>", correct: false }
+    ]
+  },
+  {
+    question: "What is the default type of button in <button>?",
+    answers: [
+      { text: "submit", correct: true },
+      { text: "reset", correct: false },
+      { text: "button", correct: false },
+      { text: "none", correct: false }
+    ]
+  },
+  {
+    question: "What is the correct HTML tag for inserting a background audio file?",
+    answers: [
+      { text: "<audio autoplay>", correct: true },
+      { text: "<bg-audio>", correct: false },
+      { text: "<sound>", correct: false },
+      { text: "<music>", correct: false }
+    ]
+  },
+  {
+    question: "Which element defines navigation links?",
+    answers: [
+      { text: "<nav>", correct: true },
+      { text: "<navigate>", correct: false },
+      { text: "<menu>", correct: false },
+      { text: "<links>", correct: false }
+    ]
+  },
+  {
+    question: "Which input type creates a slider?",
+    answers: [
+      { text: "range", correct: true },
+      { text: "slider", correct: false },
+      { text: "scroll", correct: false },
+      { text: "drag", correct: false }
+    ]
+  },
+  {
+    question: "What is the function of the <label> tag?",
+    answers: [
+      { text: "Defines a label for input", correct: true },
+      { text: "Adds title", correct: false },
+      { text: "Displays image", correct: false },
+      { text: "Links to paragraph", correct: false }
+    ]
+  },
+  {
+    question: "What is the use of <datalist>?",
+    answers: [
+      { text: "Predefined options for input", correct: true },
+      { text: "Multiple selects", correct: false },
+      { text: "Data linking", correct: false },
+      { text: "Tooltip text", correct: false }
+    ]
+  }
+];
+
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+const scoreElement = document.getElementById("score");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  nextButton.innerText = "Next";
+  scoreElement.innerHTML = "";
+  showQuestion();
+}
+
+function showQuestion() {
+  resetState();
+  const question = questions[currentQuestionIndex];
+  questionElement.innerText = question.question;
+  question.answers.forEach(answer => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("btn");
+    if (answer.correct) button.dataset.correct = answer.correct;
+    button.addEventListener("click", selectAnswer);
+    answerButtons.appendChild(button);
+  });
+}
+
+function resetState() {
+  nextButton.style.display = "none";
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+}
+
+function selectAnswer(e) {
+  const selectedBtn = e.target;
+  const isCorrect = selectedBtn.dataset.correct === "true";
+  if (isCorrect) {
+    selectedBtn.classList.add("correct");
+    score++;
+  } else {
+    selectedBtn.classList.add("wrong");
+  }
+
+  Array.from(answerButtons.children).forEach(button => {
+    button.disabled = true;
+    if (button.dataset.correct === "true") {
+      button.classList.add("correct");
+    }
+  });
+
+  nextButton.style.display = "inline-block";
+}
+
+function showScore() {
+  resetState();
+  questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+  nextButton.innerText = "Restart";
+  nextButton.style.display = "inline-block";
+}
+
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
+    showQuestion();
+  } else {
+    showScore();
+  }
+});
+
+startQuiz();
+</script>
+</body>
+</html>

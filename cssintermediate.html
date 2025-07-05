@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Intermediate Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>CSS Intermediate Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which CSS property is used to change the background color?",
+        answers: [
+          { text: "background-color", correct: true },
+          { text: "color-fill", correct: false },
+          { text: "bg-color", correct: false },
+          { text: "background-image", correct: false }
+        ]
+      },
+      {
+        question: "How can you make a border rounded in CSS?",
+        answers: [
+          { text: "border-radius", correct: true },
+          { text: "border-curve", correct: false },
+          { text: "border-shape", correct: false },
+          { text: "round-border", correct: false }
+        ]
+      },
+      {
+        question: "What property controls the space between lines of text?",
+        answers: [
+          { text: "line-height", correct: true },
+          { text: "letter-spacing", correct: false },
+          { text: "text-spacing", correct: false },
+          { text: "text-height", correct: false }
+        ]
+      },
+      {
+        question: "Which property is used to align text to the center?",
+        answers: [
+          { text: "text-align", correct: true },
+          { text: "align", correct: false },
+          { text: "justify", correct: false },
+          { text: "center", correct: false }
+        ]
+      },
+      {
+        question: "What CSS value makes an element completely transparent?",
+        answers: [
+          { text: "opacity: 0", correct: true },
+          { text: "visibility: none", correct: false },
+          { text: "display: none", correct: false },
+          { text: "transparent: true", correct: false }
+        ]
+      },
+      {
+        question: "What selector targets all elements in CSS?",
+        answers: [
+          { text: "*", correct: true },
+          { text: "all", correct: false },
+          { text: "html", correct: false },
+          { text: "body", correct: false }
+        ]
+      },
+      {
+        question: "Which unit is relative to the font-size of the root element?",
+        answers: [
+          { text: "rem", correct: true },
+          { text: "em", correct: false },
+          { text: "%", correct: false },
+          { text: "vh", correct: false }
+        ]
+      },
+      {
+        question: "What property is used to stack elements vertically or horizontally in flexbox?",
+        answers: [
+          { text: "flex-direction", correct: true },
+          { text: "flex-flow", correct: false },
+          { text: "align-items", correct: false },
+          { text: "justify-content", correct: false }
+        ]
+      },
+      {
+        question: "Which value for position makes the element fixed on the screen?",
+        answers: [
+          { text: "fixed", correct: true },
+          { text: "absolute", correct: false },
+          { text: "sticky", correct: false },
+          { text: "relative", correct: false }
+        ]
+      },
+      {
+        question: "What value for 'display' makes elements sit side by side?",
+        answers: [
+          { text: "inline-block", correct: true },
+          { text: "block", correct: false },
+          { text: "inline", correct: false },
+          { text: "relative", correct: false }
+        ]
+      },
+      {
+        question: "Which shorthand property combines margin-top, right, bottom, and left?",
+        answers: [
+          { text: "margin", correct: true },
+          { text: "padding", correct: false },
+          { text: "spacing", correct: false },
+          { text: "border-spacing", correct: false }
+        ]
+      },
+      {
+        question: "What does z-index control?",
+        answers: [
+          { text: "Stacking order", correct: true },
+          { text: "Zoom level", correct: false },
+          { text: "Element size", correct: false },
+          { text: "Box spacing", correct: false }
+        ]
+      },
+      {
+        question: "What pseudo-class targets the first child?",
+        answers: [
+          { text: ":first-child", correct: true },
+          { text: ":first", correct: false },
+          { text: ":start", correct: false },
+          { text: ":child(1)", correct: false }
+        ]
+      },
+      {
+        question: "Which property changes font style to italic?",
+        answers: [
+          { text: "font-style", correct: true },
+          { text: "font-variant", correct: false },
+          { text: "text-style", correct: false },
+          { text: "text-italic", correct: false }
+        ]
+      },
+      {
+        question: "Which property controls the speed of a CSS transition?",
+        answers: [
+          { text: "transition-duration", correct: true },
+          { text: "animation-time", correct: false },
+          { text: "transition-speed", correct: false },
+          { text: "duration", correct: false }
+        ]
+      },
+      {
+        question: "What selector targets elements with a specific class?",
+        answers: [
+          { text: ".classname", correct: true },
+          { text: "#classname", correct: false },
+          { text: "*classname", correct: false },
+          { text: ":classname", correct: false }
+        ]
+      },
+      {
+        question: "How do you apply a style only on hover?",
+        answers: [
+          { text: ":hover", correct: true },
+          { text: "::hover", correct: false },
+          { text: "~hover", correct: false },
+          { text: "@hover", correct: false }
+        ]
+      },
+      {
+        question: "Which property is used to create a shadow for text?",
+        answers: [
+          { text: "text-shadow", correct: true },
+          { text: "shadow-text", correct: false },
+          { text: "font-shadow", correct: false },
+          { text: "box-shadow", correct: false }
+        ]
+      },
+      {
+        question: "How do you hide an element but keep it in layout?",
+        answers: [
+          { text: "visibility: hidden", correct: true },
+          { text: "display: none", correct: false },
+          { text: "opacity: 0", correct: false },
+          { text: "overflow: hidden", correct: false }
+        ]
+      },
+      {
+        question: "What CSS rule is used to apply styles only when printing?",
+        answers: [
+          { text: "@media print", correct: true },
+          { text: "@print", correct: false },
+          { text: "@display print", correct: false },
+          { text: "@media screen", correct: false }
+        ]
+      }
+    ];
+
+     const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

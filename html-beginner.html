@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Beginner Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+ 
+</head>
+<body>
+  <h1>HTML Beginner Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+<script>
+const questions = [
+  {
+    question: "What does HTML stand for?",
+    answers: [
+      { text: "HyperText Markup Language", correct: true },
+      { text: "Home Tool Markup Language", correct: false },
+      { text: "Hyperlinks and Text Mark Language", correct: false },
+      { text: "HyperText Machine Language", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to create a hyperlink in HTML?",
+    answers: [
+      { text: "<a>", correct: true },
+      { text: "<link>", correct: false },
+      { text: "<href>", correct: false },
+      { text: "<hyper>", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML tag is used to insert an image?",
+    answers: [
+      { text: "<img>", correct: true },
+      { text: "<image>", correct: false },
+      { text: "<src>", correct: false },
+      { text: "<pic>", correct: false }
+    ]
+  },
+  {
+    question: "What is the correct HTML element for inserting a line break?",
+    answers: [
+      { text: "<br>", correct: true },
+      { text: "<lb>", correct: false },
+      { text: "<break>", correct: false },
+      { text: "<hr>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to define the largest heading?",
+    answers: [
+      { text: "<h1>", correct: true },
+      { text: "<head>", correct: false },
+      { text: "<h6>", correct: false },
+      { text: "<heading>", correct: false }
+    ]
+  },
+  {
+    question: "What tag is used to define a table row?",
+    answers: [
+      { text: "<tr>", correct: true },
+      { text: "<td>", correct: false },
+      { text: "<table>", correct: false },
+      { text: "<row>", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML attribute specifies an alternate text for an image?",
+    answers: [
+      { text: "alt", correct: true },
+      { text: "src", correct: false },
+      { text: "title", correct: false },
+      { text: "href", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML tag is used to create an unordered list?",
+    answers: [
+      { text: "<ul>", correct: true },
+      { text: "<ol>", correct: false },
+      { text: "<li>", correct: false },
+      { text: "<list>", correct: false }
+    ]
+  },
+  {
+    question: "Which element contains metadata/information for the document?",
+    answers: [
+      { text: "<head>", correct: true },
+      { text: "<meta>", correct: false },
+      { text: "<body>", correct: false },
+      { text: "<html>", correct: false }
+    ]
+  },
+  {
+    question: "How can you make a numbered list?",
+    answers: [
+      { text: "<ol>", correct: true },
+      { text: "<ul>", correct: false },
+      { text: "<list>", correct: false },
+      { text: "<li>", correct: false }
+    ]
+  }
+];
+
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+const scoreElement = document.getElementById("score");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  nextButton.innerText = "Next";
+  scoreElement.innerHTML = "";
+  showQuestion();
+}
+
+function showQuestion() {
+  resetState();
+  const question = questions[currentQuestionIndex];
+  questionElement.innerText = question.question;
+  question.answers.forEach(answer => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("btn");
+    if (answer.correct) button.dataset.correct = answer.correct;
+    button.addEventListener("click", selectAnswer);
+    answerButtons.appendChild(button);
+  });
+}
+
+function resetState() {
+  nextButton.style.display = "none";
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+}
+
+function selectAnswer(e) {
+  const selectedBtn = e.target;
+  const isCorrect = selectedBtn.dataset.correct === "true";
+  if (isCorrect) {
+    selectedBtn.classList.add("correct");
+    score++;
+  } else {
+    selectedBtn.classList.add("wrong");
+  }
+
+  Array.from(answerButtons.children).forEach(button => {
+    button.disabled = true;
+    if (button.dataset.correct === "true") {
+      button.classList.add("correct");
+    }
+  });
+
+  nextButton.style.display = "inline-block";
+}
+
+function showScore() {
+  resetState();
+  questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+  nextButton.innerText = "Restart";
+  nextButton.style.display = "inline-block";
+}
+
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
+    showQuestion();
+  } else {
+    showScore();
+  }
+});
+
+startQuiz();
+</script>
+</body>
+</html>

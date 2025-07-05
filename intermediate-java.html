@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Intermediate Java Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css">
+     
+</head>
+<body>
+
+  <h1>Intermediate Java Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question text</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const intermediateJavaQuestions = [
+      {
+        question: "Which interface provides the capability to sort collections?",
+        answers: [
+          { text: "Comparator", correct: true },
+          { text: "Serializable", correct: false },
+          { text: "Closeable", correct: false },
+          { text: "Runnable", correct: false }
+        ]
+      },
+      {
+        question: "What is the default value of a local variable in Java?",
+        answers: [
+          { text: "null", correct: false },
+          { text: "0", correct: false },
+          { text: "Depends on type", correct: false },
+          { text: "No default value", correct: true }
+        ]
+      },
+      {
+        question: "Which keyword is used to prevent inheritance?",
+        answers: [
+          { text: "final", correct: true },
+          { text: "static", correct: false },
+          { text: "private", correct: false },
+          { text: "sealed", correct: false }
+        ]
+      },
+      {
+        question: "What is the use of the 'super' keyword?",
+        answers: [
+          { text: "To create objects", correct: false },
+          { text: "To call parent class constructor/method", correct: true },
+          { text: "To define a class", correct: false },
+          { text: "To import packages", correct: false }
+        ]
+      },
+      {
+        question: "Which of the following is a checked exception?",
+        answers: [
+          { text: "ArrayIndexOutOfBoundsException", correct: false },
+          { text: "IOException", correct: true },
+          { text: "ArithmeticException", correct: false },
+          { text: "NullPointerException", correct: false }
+        ]
+      },
+      {
+        question: "What is method overloading?",
+        answers: [
+          { text: "Using the same method name with different parameters", correct: true },
+          { text: "Using the same method name in subclass", correct: false },
+          { text: "Calling a method inside another", correct: false },
+          { text: "Changing return type of a method", correct: false }
+        ]
+      },
+      {
+        question: "Which collection allows duplicate elements?",
+        answers: [
+          { text: "Set", correct: false },
+          { text: "List", correct: true },
+          { text: "Map", correct: false },
+          { text: "EnumSet", correct: false }
+        ]
+      },
+      {
+        question: "Which loop is guaranteed to execute at least once?",
+        answers: [
+          { text: "for", correct: false },
+          { text: "while", correct: false },
+          { text: "do-while", correct: true },
+          { text: "None of these", correct: false }
+        ]
+      },
+      {
+        question: "Which of these is not a feature of Java?",
+        answers: [
+          { text: "Multithreaded", correct: false },
+          { text: "Platform dependent", correct: true },
+          { text: "Secure", correct: false },
+          { text: "Object-oriented", correct: false }
+        ]
+      },
+      {
+        question: "Which method is used to start a thread?",
+        answers: [
+          { text: "run()", correct: false },
+          { text: "start()", correct: true },
+          { text: "execute()", correct: false },
+          { text: "init()", correct: false }
+        ]
+      },
+      {
+        question: "What is the base class for all exceptions?",
+        answers: [
+          { text: "Exception", correct: false },
+          { text: "Throwable", correct: true },
+          { text: "RuntimeException", correct: false },
+          { text: "Error", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword is used to inherit a class in Java?",
+        answers: [
+          { text: "extends", correct: true },
+          { text: "implements", correct: false },
+          { text: "inherits", correct: false },
+          { text: "this", correct: false }
+        ]
+      },
+      {
+        question: "Which exception is thrown when dividing by zero?",
+        answers: [
+          { text: "IOException", correct: false },
+          { text: "ArithmeticException", correct: true },
+          { text: "IllegalArgumentException", correct: false },
+          { text: "NullPointerException", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword is used to implement an interface?",
+        answers: [
+          { text: "extends", correct: false },
+          { text: "implements", correct: true },
+          { text: "uses", correct: false },
+          { text: "interface", correct: false }
+        ]
+      },
+      {
+        question: "Which method is used to read a line from console in Java?",
+        answers: [
+          { text: "Scanner.nextLine()", correct: true },
+          { text: "System.in.read()", correct: false },
+          { text: "BufferedReader.read()", correct: false },
+          { text: "readLine()", correct: false }
+        ]
+      },
+      {
+        question: "Which class is used to create a file in Java?",
+        answers: [
+          { text: "File", correct: true },
+          { text: "Files", correct: false },
+          { text: "Stream", correct: false },
+          { text: "BufferedReader", correct: false }
+        ]
+      },
+      {
+        question: "Which package contains collection interfaces?",
+        answers: [
+          { text: "java.io", correct: false },
+          { text: "java.lang", correct: false },
+          { text: "java.util", correct: true },
+          { text: "java.sql", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword is used to throw an exception?",
+        answers: [
+          { text: "throws", correct: false },
+          { text: "throw", correct: true },
+          { text: "catch", correct: false },
+          { text: "final", correct: false }
+        ]
+      },
+      {
+        question: "Which stream class is used to write primitive data types?",
+        answers: [
+          { text: "DataOutputStream", correct: true },
+          { text: "BufferedWriter", correct: false },
+          { text: "ObjectOutputStream", correct: false },
+          { text: "PrintStream", correct: false }
+        ]
+      },
+      {
+        question: "Which type of variable is shared among all instances of a class?",
+        answers: [
+          { text: "static variable", correct: true },
+          { text: "instance variable", correct: false },
+          { text: "local variable", correct: false },
+          { text: "global variable", correct: false }
+        ]
+      }
+    ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = intermediateJavaQuestions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) {
+          button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${intermediateJavaQuestions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < intermediateJavaQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

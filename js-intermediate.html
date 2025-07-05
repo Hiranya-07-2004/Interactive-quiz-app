@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript Intermediate Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>JavaScript Intermediate Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What does the 'this' keyword refer to in a regular function?",
+        answers: [
+          { text: "The calling object", correct: true },
+          { text: "The function itself", correct: false },
+          { text: "Global object always", correct: false },
+          { text: "The prototype", correct: false }
+        ]
+      },
+      {
+        question: "Which method is used to add an element to the end of an array?",
+        answers: [
+          { text: "push()", correct: true },
+          { text: "pop()", correct: false },
+          { text: "shift()", correct: false },
+          { text: "unshift()", correct: false }
+        ]
+      },
+      {
+        question: "What is the result of typeof null?",
+        answers: [
+          { text: "'object'", correct: true },
+          { text: "'null'", correct: false },
+          { text: "'undefined'", correct: false },
+          { text: "'boolean'", correct: false }
+        ]
+      },
+      {
+        question: "How can you prevent event bubbling?",
+        answers: [
+          { text: "event.stopPropagation()", correct: true },
+          { text: "event.preventDefault()", correct: false },
+          { text: "return false", correct: false },
+          { text: "event.cancelBubble()", correct: false }
+        ]
+      },
+      {
+        question: "Which operator checks both value and type?",
+        answers: [
+          { text: "===", correct: true },
+          { text: "==", correct: false },
+          { text: "=", correct: false },
+          { text: "!==", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword declares a block-scoped variable?",
+        answers: [
+          { text: "let", correct: true },
+          { text: "var", correct: false },
+          { text: "const", correct: false },
+          { text: "define", correct: false }
+        ]
+      },
+      {
+        question: "What is an IIFE in JavaScript?",
+        answers: [
+          { text: "Immediately Invoked Function Expression", correct: true },
+          { text: "Internal Interface For Events", correct: false },
+          { text: "Imported Interface Function Element", correct: false },
+          { text: "Instance Init Function Expression", correct: false }
+        ]
+      },
+      {
+        question: "What does the 'map()' method return?",
+        answers: [
+          { text: "A new array", correct: true },
+          { text: "A boolean", correct: false },
+          { text: "The original array", correct: false },
+          { text: "An object", correct: false }
+        ]
+      },
+      {
+        question: "What is the output of typeof NaN?",
+        answers: [
+          { text: "'number'", correct: true },
+          { text: "'NaN'", correct: false },
+          { text: "'undefined'", correct: false },
+          { text: "'object'", correct: false }
+        ]
+      },
+      {
+        question: "Which function is used to delay execution?",
+        answers: [
+          { text: "setTimeout()", correct: true },
+          { text: "setInterval()", correct: false },
+          { text: "delay()", correct: false },
+          { text: "wait()", correct: false }
+        ]
+      },
+      {
+        question: "Which symbol is used to spread elements in arrays or objects?",
+        answers: [
+          { text: "...", correct: true },
+          { text: "@", correct: false },
+          { text: "&", correct: false },
+          { text: "*", correct: false }
+        ]
+      },
+      {
+        question: "What is hoisting in JavaScript?",
+        answers: [
+          { text: "Moving declarations to the top", correct: true },
+          { text: "Lifting elements with DOM", correct: false },
+          { text: "Calling functions early", correct: false },
+          { text: "Rewriting functions", correct: false }
+        ]
+      },
+      {
+        question: "Which built-in method reverses an array?",
+        answers: [
+          { text: "reverse()", correct: true },
+          { text: "flip()", correct: false },
+          { text: "swap()", correct: false },
+          { text: "invert()", correct: false }
+        ]
+      },
+      {
+        question: "Which loop ensures the code runs at least once?",
+        answers: [
+          { text: "do...while", correct: true },
+          { text: "while", correct: false },
+          { text: "for", correct: false },
+          { text: "foreach", correct: false }
+        ]
+      },
+      {
+        question: "Which object is used to work with dates?",
+        answers: [
+          { text: "Date", correct: true },
+          { text: "Time", correct: false },
+          { text: "Clock", correct: false },
+          { text: "Moment", correct: false }
+        ]
+      },
+      {
+        question: "Which method adds elements to the start of an array?",
+        answers: [
+          { text: "unshift()", correct: true },
+          { text: "push()", correct: false },
+          { text: "concat()", correct: false },
+          { text: "prepend()", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword creates a constant in JavaScript?",
+        answers: [
+          { text: "const", correct: true },
+          { text: "var", correct: false },
+          { text: "static", correct: false },
+          { text: "final", correct: false }
+        ]
+      },
+      {
+        question: "Which method combines two or more arrays?",
+        answers: [
+          { text: "concat()", correct: true },
+          { text: "merge()", correct: false },
+          { text: "combine()", correct: false },
+          { text: "append()", correct: false }
+        ]
+      },
+      {
+        question: "How do you convert a string to an integer?",
+        answers: [
+          { text: "parseInt()", correct: true },
+          { text: "Number()", correct: false },
+          { text: "toInteger()", correct: false },
+          { text: "parse()", correct: false }
+        ]
+      },
+      {
+        question: "What is a closure in JavaScript?",
+        answers: [
+          { text: "A function with access to its outer scope", correct: true },
+          { text: "A class with private members", correct: false },
+          { text: "An immediately called function", correct: false },
+          { text: "A block that executes only once", correct: false }
+        ]
+      }
+    ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

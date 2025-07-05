@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Pro Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>HTML Pro Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+<script>
+const questions = [
+   {
+    question: "What does the <figure> tag represent in HTML5?",
+    answers: [
+      { text: "<figure>", correct: true },
+      { text: "<caption>", correct: false },
+      { text: "<legend>", correct: false },
+      { text: "<figcaption>", correct: false }
+    ]
+  },
+  {
+    question: "What is the purpose of the <figcaption> element?",
+    answers: [
+      { text: "Caption for <figure> content", correct: true },
+      { text: "Defines a tooltip", correct: false },
+      { text: "Adds a title to the image", correct: false },
+      { text: "Wraps text", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML5 element is used for self-contained content?",
+    answers: [
+      { text: "<article>", correct: true },
+      { text: "<section>", correct: false },
+      { text: "<div>", correct: false },
+      { text: "<content>", correct: false }
+    ]
+  },
+  {
+    question: "What is the function of the 'sandbox' attribute in <iframe>?",
+    answers: [
+      { text: "Apply security restrictions", correct: true },
+      { text: "Add custom styles", correct: false },
+      { text: "Embed scripts", correct: false },
+      { text: "Disable form input", correct: false }
+    ]
+  },
+  {
+    question: "What tag defines alternative media sources for media elements?",
+    answers: [
+      { text: "<source>", correct: true },
+      { text: "<track>", correct: false },
+      { text: "<media>", correct: false },
+      { text: "<alt>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to define multiple media resources?",
+    answers: [
+      { text: "<picture>", correct: true },
+      { text: "<video>", correct: false },
+      { text: "<embed>", correct: false },
+      { text: "<object>", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML attribute prevents autocomplete in forms?",
+    answers: [
+      { text: "autocomplete='off'", correct: true },
+      { text: "autofill='false'", correct: false },
+      { text: "auto='none'", correct: false },
+      { text: "fill='no'", correct: false }
+    ]
+  },
+  {
+    question: "What attribute is used to group form controls for accessibility?",
+    answers: [
+      { text: "aria-labelledby", correct: true },
+      { text: "data-group", correct: false },
+      { text: "accesskey", correct: false },
+      { text: "form-id", correct: false }
+    ]
+  },
+  {
+    question: "Which tag specifies an output element in a form?",
+    answers: [
+      { text: "<output>", correct: true },
+      { text: "<result>", correct: false },
+      { text: "<display>", correct: false },
+      { text: "<value>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag is used to embed an external application?",
+    answers: [
+      { text: "<object>", correct: true },
+      { text: "<embed>", correct: false },
+      { text: "<external>", correct: false },
+      { text: "<applet>", correct: false }
+    ]
+  },
+  {
+    question: "What is the role of <main> in HTML5?",
+    answers: [
+      { text: "Main content of the document", correct: true },
+      { text: "Defines page heading", correct: false },
+      { text: "Describes meta info", correct: false },
+      { text: "Links stylesheet", correct: false }
+    ]
+  },
+  {
+    question: "What is the purpose of <time> tag?",
+    answers: [
+      { text: "Defines date/time", correct: true },
+      { text: "Displays system time", correct: false },
+      { text: "Adds timer", correct: false },
+      { text: "Records logs", correct: false }
+    ]
+  },
+  {
+    question: "What does <progress> element represent?",
+    answers: [
+      { text: "Task completion progress", correct: true },
+      { text: "Download speed", correct: false },
+      { text: "Loading bar", correct: false },
+      { text: "Timer animation", correct: false }
+    ]
+  },
+  {
+    question: "What attribute makes HTML input fields required?",
+    answers: [
+      { text: "required", correct: true },
+      { text: "must", correct: false },
+      { text: "validate", correct: false },
+      { text: "mandatory", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML5 attribute defines the expected type for a form field?",
+    answers: [
+      { text: "type", correct: true },
+      { text: "format", correct: false },
+      { text: "data-type", correct: false },
+      { text: "input-type", correct: false }
+    ]
+  },
+  {
+    question: "Which element is used for text direction declaration?",
+    answers: [
+      { text: "<bdo>", correct: true },
+      { text: "<dir>", correct: false },
+      { text: "<textdir>", correct: false },
+      { text: "<bdi>", correct: false }
+    ]
+  },
+  {
+    question: "What is the function of the <wbr> tag?",
+    answers: [
+      { text: "Defines word break opportunity", correct: true },
+      { text: "Sets line spacing", correct: false },
+      { text: "Enables bold", correct: false },
+      { text: "Declares warning", correct: false }
+    ]
+  },
+  {
+    question: "Which element defines scalar measurements within a known range?",
+    answers: [
+      { text: "<meter>", correct: true },
+      { text: "<progress>", correct: false },
+      { text: "<range>", correct: false },
+      { text: "<scale>", correct: false }
+    ]
+  },
+  {
+    question: "What does 'novalidate' attribute do?",
+    answers: [
+      { text: "Disables default form validation", correct: true },
+      { text: "Skips required fields", correct: false },
+      { text: "Auto-submits form", correct: false },
+      { text: "Encrypts fields", correct: false }
+    ]
+  },
+  {
+    question: "What is <datalist> used for?",
+    answers: [
+      { text: "Defines predefined options for input", correct: true },
+      { text: "Dropdown selector", correct: false },
+      { text: "Multi-checkbox input", correct: false },
+      { text: "Scroll list", correct: false }
+    ]
+  },
+  {
+    question: "What is the default behavior of <form>?",
+    answers: [
+      { text: "Submits data via GET", correct: true },
+      { text: "Saves in DB", correct: false },
+      { text: "Redirects user", correct: false },
+      { text: "Opens modal", correct: false }
+    ]
+  },
+  {
+    question: "What attribute disables an input field?",
+    answers: [
+      { text: "disabled", correct: true },
+      { text: "inactive", correct: false },
+      { text: "readonly", correct: false },
+      { text: "blocked", correct: false }
+    ]
+  },
+  {
+    question: "What is the function of <mark> tag?",
+    answers: [
+      { text: "Highlights text", correct: true },
+      { text: "Makes bold", correct: false },
+      { text: "Italicizes", correct: false },
+      { text: "Inserts background", correct: false }
+    ]
+  },
+  {
+    question: "What does <template> tag define?",
+    answers: [
+      { text: "Client-side content that is not rendered", correct: true },
+      { text: "Reusable styles", correct: false },
+      { text: "Hidden form", correct: false },
+      { text: "Global variable", correct: false }
+    ]
+  },
+  {
+    question: "What does the 'hidden' attribute do?",
+    answers: [
+      { text: "Hides the element from rendering", correct: true },
+      { text: "Encrypts", correct: false },
+      { text: "Resizes", correct: false },
+      { text: "Makes it inactive", correct: false }
+    ]
+  },
+  {
+    question: "Which element is used to define keyboard input?",
+    answers: [
+      { text: "<kbd>", correct: true },
+      { text: "<key>", correct: false },
+      { text: "<input type='key'>", correct: false },
+      { text: "<kbdin>", correct: false }
+    ]
+  },
+  {
+    question: "What does <bdi> stand for?",
+    answers: [
+      { text: "Bi-directional isolation", correct: true },
+      { text: "Base direction index", correct: false },
+      { text: "Browser data input", correct: false },
+      { text: "Block display inline", correct: false }
+    ]
+  },
+  {
+    question: "Which tag groups navigation links?",
+    answers: [
+      { text: "<nav>", correct: true },
+      { text: "<menu>", correct: false },
+      { text: "<linkset>", correct: false },
+      { text: "<route>", correct: false }
+    ]
+  },
+  {
+    question: "How do you define a short inline quotation?",
+    answers: [
+      { text: "<q>", correct: true },
+      { text: "<quote>", correct: false },
+      { text: "<cite>", correct: false },
+      { text: "<smallquote>", correct: false }
+    ]
+  },
+  {
+    question: "What element defines a contact information section?",
+    answers: [
+      { text: "<address>", correct: true },
+      { text: "<contact>", correct: false },
+      { text: "<info>", correct: false },
+      { text: "<footer>", correct: false }
+    ]
+  },
+  {
+    question: "What does the 'spellcheck' attribute do?",
+    answers: [
+      { text: "Enables spelling correction", correct: true },
+      { text: "Corrects grammar", correct: false },
+      { text: "Adds synonyms", correct: false },
+      { text: "Counts words", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML element supports subtitles for video?",
+    answers: [
+      { text: "<track>", correct: true },
+      { text: "<subtitle>", correct: false },
+      { text: "<source>", correct: false },
+      { text: "<script>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag defines variables in HTML?",
+    answers: [
+      { text: "<var>", correct: true },
+      { text: "<v>", correct: false },
+      { text: "<variable>", correct: false },
+      { text: "<val>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag defines inserted text?",
+    answers: [
+      { text: "<ins>", correct: true },
+      { text: "<insert>", correct: false },
+      { text: "<add>", correct: false },
+      { text: "<append>", correct: false }
+    ]
+  },
+  {
+    question: "What is the use of <noscript> tag?",
+    answers: [
+      { text: "Display content if scripts are disabled", correct: true },
+      { text: "Preload scripts", correct: false },
+      { text: "Add fallback style", correct: false },
+      { text: "Define metadata", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML tag is used to define superscript text?",
+    answers: [
+      { text: "<sup>", correct: true },
+      { text: "<subsup>", correct: false },
+      { text: "<ss>", correct: false },
+      { text: "<toptext>", correct: false }
+    ]
+  },
+  {
+    question: "Which HTML tag defines subscript text?",
+    answers: [
+      { text: "<sub>", correct: true },
+      { text: "<subtext>", correct: false },
+      { text: "<lower>", correct: false },
+      { text: "<ss>", correct: false }
+    ]
+  },
+  {
+    question: "What is the purpose of the <details> tag?",
+    answers: [
+      { text: "Creates a disclosure widget", correct: true },
+      { text: "Adds annotation", correct: false },
+      { text: "Tooltip info", correct: false },
+      { text: "Scroll panel", correct: false }
+    ]
+  },
+  {
+    question: "What tag works with <details> to label the summary?",
+    answers: [
+      { text: "<summary>", correct: true },
+      { text: "<label>", correct: false },
+      { text: "<caption>", correct: false },
+      { text: "<intro>", correct: false }
+    ]
+  },
+  {
+    question: "What does 'contenteditable' attribute do?",
+    answers: [
+      { text: "Makes content editable", correct: true },
+      { text: "Encrypts content", correct: false },
+      { text: "Centers content", correct: false },
+      { text: "Highlights text", correct: false }
+    ]
+  },
+  {
+    question: "What is the use of <del> tag?",
+    answers: [
+      { text: "Marks deleted text", correct: true },
+      { text: "Strikethrough text", correct: false },
+      { text: "Hide text", correct: false },
+      { text: "Makes optional", correct: false }
+    ]
+  },
+  {
+    question: "Which element shows computer output?",
+    answers: [
+      { text: "<samp>", correct: true },
+      { text: "<cmd>", correct: false },
+      { text: "<out>", correct: false },
+      { text: "<console>", correct: false }
+    ]
+  },
+  {
+    question: "Which attribute sets custom data in HTML5?",
+    answers: [
+      { text: "data-*", correct: true },
+      { text: "custom-*", correct: false },
+      { text: "meta-*", correct: false },
+      { text: "extra-*", correct: false }
+    ]
+  },
+  {
+    question: "What is the default method for form submission?",
+    answers: [
+      { text: "GET", correct: true },
+      { text: "POST", correct: false },
+      { text: "PUT", correct: false },
+      { text: "SEND", correct: false }
+    ]
+  },
+  {
+    question: "What tag is used to define client-side image maps?",
+    answers: [
+      { text: "<map>", correct: true },
+      { text: "<imagemap>", correct: false },
+      { text: "<canvas>", correct: false },
+      { text: "<coords>", correct: false }
+    ]
+  },
+  {
+    question: "Which tag specifies an area inside an image map?",
+    answers: [
+      { text: "<area>", correct: true },
+      { text: "<region>", correct: false },
+      { text: "<zone>", correct: false },
+      { text: "<section>", correct: false }
+    ]
+  },
+  {
+    question: "What does <code> tag represent?",
+    answers: [
+      { text: "Code snippet", correct: true },
+      { text: "Input field", correct: false },
+      { text: "Comment", correct: false },
+      { text: "Form variable", correct: false }
+    ]
+  },
+  {
+    question: "What tag defines a rubric or quote source?",
+    answers: [
+      { text: "<cite>", correct: true },
+      { text: "<quote>", correct: false },
+      { text: "<ref>", correct: false },
+      { text: "<credit>", correct: false }
+    ]
+  },
+  {
+    question: "Which element is used to group inline elements and style them?",
+    answers: [
+      { text: "<span>", correct: true },
+      { text: "<div>", correct: false },
+      { text: "<em>", correct: false },
+      { text: "<small>", correct: false }
+    ]
+  }
+];
+
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+const scoreElement = document.getElementById("score");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  nextButton.innerText = "Next";
+  scoreElement.innerHTML = "";
+  showQuestion();
+}
+
+function showQuestion() {
+  resetState();
+  const question = questions[currentQuestionIndex];
+  questionElement.innerText = question.question;
+  question.answers.forEach(answer => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("btn");
+    if (answer.correct) button.dataset.correct = answer.correct;
+    button.addEventListener("click", selectAnswer);
+    answerButtons.appendChild(button);
+  });
+}
+
+function resetState() {
+  nextButton.style.display = "none";
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+}
+
+function selectAnswer(e) {
+  const selectedBtn = e.target;
+  const isCorrect = selectedBtn.dataset.correct === "true";
+  if (isCorrect) {
+    selectedBtn.classList.add("correct");
+    score++;
+  } else {
+    selectedBtn.classList.add("wrong");
+  }
+
+  Array.from(answerButtons.children).forEach(button => {
+    button.disabled = true;
+    if (button.dataset.correct === "true") {
+      button.classList.add("correct");
+    }
+  });
+
+  nextButton.style.display = "inline-block";
+}
+
+function showScore() {
+  resetState();
+  questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+  nextButton.innerText = "Restart";
+  nextButton.style.display = "inline-block";
+}
+
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
+    showQuestion();
+  } else {
+    showScore();
+  }
+});
+
+startQuiz();
+</script>
+</body>
+</html>

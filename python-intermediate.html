@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Intermediate Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>Python Intermediate Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question text</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "What will be the output of: print(type(lambda x: x))?", answers: [
+          { text: "<class 'function'>", correct: true },
+          { text: "<class 'lambda'>", correct: false },
+          { text: "<function lambda>", correct: false },
+          { text: "SyntaxError", correct: false }
+      ]},
+      { question: "Which method is used to add an item to the end of a list?", answers: [
+          { text: "add()", correct: false },
+          { text: "append()", correct: true },
+          { text: "insert()", correct: false },
+          { text: "extend()", correct: false }
+      ]},
+      { question: "Which module is used for regular expressions in Python?", answers: [
+          { text: "regex", correct: false },
+          { text: "re", correct: true },
+          { text: "match", correct: false },
+          { text: "rx", correct: false }
+      ]},
+      { question: "What is the output of bool([])?", answers: [
+          { text: "True", correct: false },
+          { text: "False", correct: true },
+          { text: "None", correct: false },
+          { text: "0", correct: false }
+      ]},
+      { question: "Which of the following is a valid way to open a file for reading?", answers: [
+          { text: "open('file.txt', 'r')", correct: true },
+          { text: "open('file.txt', 'w')", correct: false },
+          { text: "open('file.txt', 'x')", correct: false },
+          { text: "open('file.txt', 'rw')", correct: false }
+      ]},
+      { question: "How do you create a dictionary in Python?", answers: [
+          { text: "{ 'a': 1, 'b': 2 }", correct: true },
+          { text: "[ 'a': 1, 'b': 2 ]", correct: false },
+          { text: "( 'a': 1, 'b': 2 )", correct: false },
+          { text: "< 'a': 1, 'b': 2 >", correct: false }
+      ]},
+      { question: "What does the strip() method do?", answers: [
+          { text: "Removes whitespace from beginning and end", correct: true },
+          { text: "Replaces parts of a string", correct: false },
+          { text: "Splits a string", correct: false },
+          { text: "Removes characters from string", correct: false }
+      ]},
+      { question: "Which keyword is used to create a generator function?", answers: [
+          { text: "yield", correct: true },
+          { text: "return", correct: false },
+          { text: "generate", correct: false },
+          { text: "gen", correct: false }
+      ]},
+      { question: "What does enumerate() return?", answers: [
+          { text: "index and value pair", correct: true },
+          { text: "value only", correct: false },
+          { text: "index only", correct: false },
+          { text: "nothing", correct: false }
+      ]},
+      { question: "Which of the following is used to handle exceptions?", answers: [
+          { text: "try-except", correct: true },
+          { text: "if-else", correct: false },
+          { text: "while", correct: false },
+          { text: "match-case", correct: false }
+      ]},
+      { question: "What is the output of print(list(range(0)))?", answers: [
+          { text: "[]", correct: true },
+          { text: "[0]", correct: false },
+          { text: "None", correct: false },
+          { text: "Error", correct: false }
+      ]},
+      { question: "What type of error is raised by int('abc')?", answers: [
+          { text: "ValueError", correct: true },
+          { text: "TypeError", correct: false },
+          { text: "NameError", correct: false },
+          { text: "SyntaxError", correct: false }
+      ]},
+      { question: "Which of these is an immutable type?", answers: [
+          { text: "tuple", correct: true },
+          { text: "list", correct: false },
+          { text: "dict", correct: false },
+          { text: "set", correct: false }
+      ]},
+      { question: "What does the zip() function do?", answers: [
+          { text: "Pairs elements from multiple iterables", correct: true },
+          { text: "Compresses data", correct: false },
+          { text: "Sorts elements", correct: false },
+          { text: "Unzips a list", correct: false }
+      ]},
+      { question: "Which function converts a string to lowercase?", answers: [
+          { text: "lower()", correct: true },
+          { text: "downcase()", correct: false },
+          { text: "tolower()", correct: false },
+          { text: "lc()", correct: false }
+      ]},
+      { question: "Which keyword is used to define a class?", answers: [
+          { text: "class", correct: true },
+          { text: "def", correct: false },
+          { text: "object", correct: false },
+          { text: "struct", correct: false }
+      ]},
+      { question: "What will be the output of: 'hello' * 2?", answers: [
+          { text: "hellohello", correct: true },
+          { text: "hello2", correct: false },
+          { text: "Error", correct: false },
+          { text: "None", correct: false }
+      ]},
+      { question: "Which keyword is used to define an anonymous function?", answers: [
+          { text: "lambda", correct: true },
+          { text: "anon", correct: false },
+          { text: "def", correct: false },
+          { text: "func", correct: false }
+      ]},
+      { question: "What will be the output of: bool(0)?", answers: [
+          { text: "False", correct: true },
+          { text: "True", correct: false },
+          { text: "0", correct: false },
+          { text: "None", correct: false }
+      ]},
+      { question: "Which function gets the ASCII value of a character?", answers: [
+          { text: "ord()", correct: true },
+          { text: "ascii()", correct: false },
+          { text: "ordchar()", correct: false },
+          { text: "charcode()", correct: false }
+      ]}
+    ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) {
+          button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Java Pro Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css">
+  
+</head>
+<body>
+
+  <h1>Java Pro Quiz</h1>
+  <div class="quiz-container">
+    <div id="question">Question text</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const proJavaQuestions = [
+      { question: "What is the purpose of the volatile keyword in Java?", answers: [
+        { text: "To make variable synchronized", correct: false },
+        { text: "To ensure visibility of changes across threads", correct: true },
+        { text: "To lock the variable", correct: false },
+        { text: "To delay initialization", correct: false }
+      ] },
+      { question: "Which of the following is not a feature of Java 8?", answers: [
+        { text: "Lambda Expressions", correct: false },
+        { text: "Stream API", correct: false },
+        { text: "Record keyword", correct: true },
+        { text: "Functional Interfaces", correct: false }
+      ] },
+   {
+    question: "Which of these features is not part of Java?",
+    answers: [
+      { text: "Automatic memory management", correct: false },
+      { text: "Multiple inheritance using classes", correct: true },
+      { text: "Platform independence", correct: false },
+      { text: "Object-oriented programming", correct: false }
+    ]
+  },
+  {
+    question: "Which keyword is used to inherit a class in Java?",
+    answers: [
+      { text: "extends", correct: true },
+      { text: "implements", correct: false },
+      { text: "inherits", correct: false },
+      { text: "instanceof", correct: false }
+    ]
+  },
+  {
+    question: "Which exception is thrown when a negative array size is declared?",
+    answers: [
+      { text: "NegativeArraySizeException", correct: true },
+      { text: "ArrayIndexOutOfBoundsException", correct: false },
+      { text: "NullPointerException", correct: false },
+      { text: "IllegalArgumentException", correct: false }
+    ]
+  },
+  {
+    question: "Which of these is not a Java access modifier?",
+    answers: [
+      { text: "protected", correct: false },
+      { text: "public", correct: false },
+      { text: "private", correct: false },
+      { text: "internal", correct: true }
+    ]
+  },
+  {
+    question: "Which method can be used to find the length of a string in Java?",
+    answers: [
+      { text: "length()", correct: true },
+      { text: "size()", correct: false },
+      { text: "getSize()", correct: false },
+      { text: "count()", correct: false }
+    ]
+  },
+  {
+    question: "What does the 'final' keyword indicate in Java?",
+    answers: [
+      { text: "A variable cannot be reassigned", correct: true },
+      { text: "A method is inherited", correct: false },
+      { text: "An object is garbage collected", correct: false },
+      { text: "A class must be abstract", correct: false }
+    ]
+  },
+  {
+    question: "Which of the following is not a Java primitive type?",
+    answers: [
+      { text: "int", correct: false },
+      { text: "boolean", correct: false },
+      { text: "String", correct: true },
+      { text: "char", correct: false }
+    ]
+  },
+  {
+    question: "Which data structure uses LIFO?",
+    answers: [
+      { text: "Stack", correct: true },
+      { text: "Queue", correct: false },
+      { text: "ArrayList", correct: false },
+      { text: "HashMap", correct: false }
+    ]
+  },
+  {
+    question: "What is method overloading?",
+    answers: [
+      { text: "Multiple methods with same name but different parameters", correct: true },
+      { text: "Methods with same return types", correct: false },
+      { text: "Calling one method from another", correct: false },
+      { text: "Same method in parent and child class", correct: false }
+    ]
+  },
+  {
+    question: "What is the size of int in Java?",
+    answers: [
+      { text: "4 bytes", correct: true },
+      { text: "2 bytes", correct: false },
+      { text: "8 bytes", correct: false },
+      { text: "Depends on system", correct: false }
+    ]
+  },
+  {
+    question: "What is the purpose of the `super` keyword?",
+    answers: [
+      { text: "To access parent class members", correct: true },
+      { text: "To define a superclass", correct: false },
+      { text: "To create an object", correct: false },
+      { text: "To override a method", correct: false }
+    ]
+  },
+  {
+    question: "Which interface is used to sort custom objects?",
+    answers: [
+      { text: "Comparable", correct: true },
+      { text: "Runnable", correct: false },
+      { text: "Closeable", correct: false },
+      { text: "Serializable", correct: false }
+    ]
+  },
+  {
+    question: "What is the default value of a boolean in Java?",
+    answers: [
+      { text: "false", correct: true },
+      { text: "true", correct: false },
+      { text: "null", correct: false },
+      { text: "0", correct: false }
+    ]
+  },
+  {
+    question: "Which keyword is used to prevent inheritance?",
+    answers: [
+      { text: "final", correct: true },
+      { text: "static", correct: false },
+      { text: "sealed", correct: false },
+      { text: "abstract", correct: false }
+    ]
+  },
+  {
+    question: "Which class is used to take input from the user in Java?",
+    answers: [
+      { text: "Scanner", correct: true },
+      { text: "InputReader", correct: false },
+      { text: "Buffer", correct: false },
+      { text: "Reader", correct: false }
+    ]
+  },
+  {
+    question: "Which Java collection class is thread-safe?",
+    answers: [
+      { text: "Vector", correct: true },
+      { text: "ArrayList", correct: false },
+      { text: "LinkedList", correct: false },
+      { text: "HashSet", correct: false }
+    ]
+  },
+  {
+    question: "Which of these is a marker interface?",
+    answers: [
+      { text: "Serializable", correct: true },
+      { text: "Cloneable", correct: false },
+      { text: "Runnable", correct: false },
+      { text: "Comparable", correct: false }
+    ]
+  },
+  {
+    question: "Which of the following is used to create a thread?",
+    answers: [
+      { text: "Extending Thread class", correct: false },
+      { text: "Implementing Runnable interface", correct: false },
+      { text: "Both A and B", correct: true },
+      { text: "Using static block", correct: false }
+    ]
+  },
+  {
+    question: "What is the return type of `hashCode()`?",
+    answers: [
+      { text: "int", correct: true },
+      { text: "long", correct: false },
+      { text: "String", correct: false },
+      { text: "boolean", correct: false }
+    ]
+  },
+  {
+    question: "Which package contains all the collection classes?",
+    answers: [
+      { text: "java.util", correct: true },
+      { text: "java.io", correct: false },
+      { text: "java.lang", correct: false },
+      { text: "java.net", correct: false }
+    ]
+  },
+  {
+  question: "Which of the following is not a type of constructor in Java?",
+  answers: [
+    { text: "Default constructor", correct: false },
+    { text: "Parameterized constructor", correct: false },
+    { text: "Copy constructor", correct: true },
+    { text: "No-arg constructor", correct: false }
+  ]
+},
+{
+  question: "Which annotation is used to override a method?",
+  answers: [
+    { text: "@Override", correct: true },
+    { text: "@Overload", correct: false },
+    { text: "@Super", correct: false },
+    { text: "@Method", correct: false }
+  ]
+},
+{
+  question: "What is the base class of all classes in Java?",
+  answers: [
+    { text: "Object", correct: true },
+    { text: "Class", correct: false },
+    { text: "Parent", correct: false },
+    { text: "Super", correct: false }
+  ]
+},
+{
+  question: "Which keyword is used to define a constant variable in Java?",
+  answers: [
+    { text: "final", correct: true },
+    { text: "const", correct: false },
+    { text: "static", correct: false },
+    { text: "define", correct: false }
+  ]
+},
+{
+  question: "Which method is used to compare two strings ignoring case?",
+  answers: [
+    { text: "equalsIgnoreCase()", correct: true },
+    { text: "compareTo()", correct: false },
+    { text: "equals()", correct: false },
+    { text: "match()", correct: false }
+  ]
+},
+{
+  question: "Which of the following is used for runtime polymorphism?",
+  answers: [
+    { text: "Method overriding", correct: true },
+    { text: "Method overloading", correct: false },
+    { text: "Constructor", correct: false },
+    { text: "Inheritance", correct: false }
+  ]
+},
+{
+  question: "Which exception is thrown when dividing by zero in Java?",
+  answers: [
+    { text: "ArithmeticException", correct: true },
+    { text: "IllegalArgumentException", correct: false },
+    { text: "NullPointerException", correct: false },
+    { text: "IOException", correct: false }
+  ]
+},
+{
+  question: "Which class allows only unique elements and maintains insertion order?",
+  answers: [
+    { text: "LinkedHashSet", correct: true },
+    { text: "HashSet", correct: false },
+    { text: "TreeSet", correct: false },
+    { text: "ArrayList", correct: false }
+  ]
+},
+{
+  question: "Which block is always executed whether exception is handled or not?",
+  answers: [
+    { text: "finally", correct: true },
+    { text: "catch", correct: false },
+    { text: "throw", correct: false },
+    { text: "throws", correct: false }
+  ]
+},
+{
+  question: "What does `this` keyword refer to in Java?",
+  answers: [
+    { text: "Current class object", correct: true },
+    { text: "Parent class object", correct: false },
+    { text: "Static reference", correct: false },
+    { text: "Method argument", correct: false }
+  ]
+},
+{
+  question: "What is the output of `System.out.println(10 + 20 + \"Java\")`?",
+  answers: [
+    { text: "30Java", correct: true },
+    { text: "1020Java", correct: false },
+    { text: "Java1020", correct: false },
+    { text: "Java30", correct: false }
+  ]
+},
+{
+  question: "What is the size of a float variable in Java?",
+  answers: [
+    { text: "4 bytes", correct: true },
+    { text: "2 bytes", correct: false },
+    { text: "8 bytes", correct: false },
+    { text: "Depends on JVM", correct: false }
+  ]
+},
+{
+  question: "Which class in Java is immutable?",
+  answers: [
+    { text: "String", correct: true },
+    { text: "StringBuilder", correct: false },
+    { text: "StringBuffer", correct: false },
+    { text: "Date", correct: false }
+  ]
+},
+{
+  question: "Which Java feature allows the same method to behave differently?",
+  answers: [
+    { text: "Polymorphism", correct: true },
+    { text: "Abstraction", correct: false },
+    { text: "Encapsulation", correct: false },
+    { text: "Inheritance", correct: false }
+  ]
+},
+{
+  question: "Which access modifier makes a method accessible within the same package?",
+  answers: [
+    { text: "default", correct: true },
+    { text: "private", correct: false },
+    { text: "protected", correct: false },
+    { text: "public", correct: false }
+  ]
+},
+{
+  question: "Which collection does not allow duplicate elements?",
+  answers: [
+    { text: "Set", correct: true },
+    { text: "List", correct: false },
+    { text: "Queue", correct: false },
+    { text: "Map", correct: false }
+  ]
+},
+{
+  question: "What is the default value of object references in Java?",
+  answers: [
+    { text: "null", correct: true },
+    { text: "0", correct: false },
+    { text: "undefined", correct: false },
+    { text: "blank", correct: false }
+  ]
+},
+{
+  question: "38. Which of the following is used to handle exceptions?",
+  answers: [
+    { text: "try-catch", correct: true },
+    { text: "if-else", correct: false },
+    { text: "while", correct: false },
+    { text: "loop", correct: false }
+  ]
+},
+{
+  question: "What is the result of `10 >> 1` in Java?",
+  answers: [
+    { text: "5", correct: true },
+    { text: "10", correct: false },
+    { text: "20", correct: false },
+    { text: "1", correct: false }
+  ]
+},
+{
+  question: "Which of these classes provides dynamic arrays in Java?",
+  answers: [
+    { text: "ArrayList", correct: true },
+    { text: "HashSet", correct: false },
+    { text: "Vector", correct: false },
+    { text: "LinkedList", correct: false }
+  ]
+},
+{
+  question: "What is encapsulation in Java?",
+  answers: [
+    { text: "Hiding data using private access modifier", correct: true },
+    { text: "Overriding methods", correct: false },
+    { text: "Writing constructors", correct: false },
+    { text: "Accessing private fields", correct: false }
+  ]
+},
+{
+  question: "Which of these is not part of OOPS concepts?",
+  answers: [
+    { text: "Compilation", correct: true },
+    { text: "Abstraction", correct: false },
+    { text: "Polymorphism", correct: false },
+    { text: "Encapsulation", correct: false }
+  ]
+},
+{
+  question: "What is the entry point of any Java application?",
+  answers: [
+    { text: "main() method", correct: true },
+    { text: "start()", correct: false },
+    { text: "run()", correct: false },
+    { text: "init()", correct: false }
+  ]
+},
+{
+  question: "What does JVM stand for?",
+  answers: [
+    { text: "Java Virtual Machine", correct: true },
+    { text: "Java Visual Model", correct: false },
+    { text: "Java Value Memory", correct: false },
+    { text: "Java Virtual Memory", correct: false }
+  ]
+},
+{
+  question: "Which operator is used for logical AND in Java?",
+  answers: [
+    { text: "&&", correct: true },
+    { text: "&", correct: false },
+    { text: "|", correct: false },
+    { text: "||", correct: false }
+  ]
+},
+{
+  question: "Which keyword is used to explicitly throw an exception?",
+  answers: [
+    { text: "throw", correct: true },
+    { text: "throws", correct: false },
+    { text: "exception", correct: false },
+    { text: "new", correct: false }
+  ]
+},
+{
+  question: "Which is the superclass for all exceptions?",
+  answers: [
+    { text: "Throwable", correct: true },
+    { text: "Exception", correct: false },
+    { text: "Error", correct: false },
+    { text: "RuntimeException", correct: false }
+  ]
+},
+{
+  question: "What is the correct way to declare a package in Java?",
+  answers: [
+    { text: "package com.example;", correct: true },
+    { text: "package:com.example", correct: false },
+    { text: "import com.example", correct: false },
+    { text: "pkg com.example", correct: false }
+  ]
+}
+
+
+     ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = proJavaQuestions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) {
+          button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `\u{1F389} Your score: ${score} / ${proJavaQuestions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < proJavaQuestions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

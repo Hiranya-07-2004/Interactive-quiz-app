@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JavaScript Pro Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>JavaScript Pro Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the result of '2' + 2 + 2 in JavaScript?",
+        answers: [
+          { text: "222", correct: true },
+          { text: "6", correct: false },
+          { text: "NaN", correct: false },
+          { text: "4", correct: false }
+        ]
+      },
+      {
+        question: "What is a Promise in JavaScript?",
+        answers: [
+          { text: "An object representing the eventual completion or failure of an asynchronous operation", correct: true },
+          { text: "A callback", correct: false },
+          { text: "A type of variable", correct: false },
+          { text: "A class", correct: false }
+        ]
+      },
+      {
+        question: "Which method is used to schedule code to run after a delay?",
+        answers: [
+          { text: "setTimeout()", correct: true },
+          { text: "setInterval()", correct: false },
+          { text: "delay()", correct: false },
+          { text: "timeout()", correct: false }
+        ]
+      },
+      {
+        question: "What is the purpose of the `bind()` method?",
+        answers: [
+          { text: "To bind a function to a specific object", correct: true },
+          { text: "To stop propagation", correct: false },
+          { text: "To inherit properties", correct: false },
+          { text: "To clone an object", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword is used to handle errors?",
+        answers: [
+          { text: "try", correct: true },
+          { text: "catch", correct: false },
+          { text: "throw", correct: false },
+          { text: "finally", correct: false }
+        ]
+      },
+
+       {
+        question: "What will `typeof NaN` return?",
+        answers: [
+          { text: "'number'", correct: true },
+          { text: "'NaN'", correct: false },
+          { text: "'undefined'", correct: false },
+          { text: "'object'", correct: false }
+        ]
+      },
+      {
+        question: "What is the output of `[...'hello']`?",
+        answers: [
+          { text: "['h', 'e', 'l', 'l', 'o']", correct: true },
+          { text: "['hello']", correct: false },
+          { text: "['h-e-l-l-o']", correct: false },
+          { text: "Error", correct: false }
+        ]
+      },
+      {
+        question: "What is `debouncing` in JavaScript?",
+        answers: [
+          { text: "A technique to limit the rate of function execution", correct: true },
+          { text: "A way to handle promises", correct: false },
+          { text: "A type of callback", correct: false },
+          { text: "A design pattern", correct: false }
+        ]
+      },
+      {
+        question: "Which keyword defines a class in JavaScript?",
+        answers: [
+          { text: "class", correct: true },
+          { text: "function", correct: false },
+          { text: "constructor", correct: false },
+          { text: "object", correct: false }
+        ]
+      },
+      {
+        question: "What will `0.1 + 0.2 === 0.3` return?",
+        answers: [
+          { text: "false", correct: true },
+          { text: "true", correct: false },
+          { text: "undefined", correct: false },
+          { text: "NaN", correct: false }
+        ]
+      },
+      {
+        question: "How do you create a new Set?",
+        answers: [
+          { text: "new Set()", correct: true },
+          { text: "Set()", correct: false },
+          { text: "new set()", correct: false },
+          { text: "create Set()", correct: false }
+        ]
+      },
+      {
+        question: "What does `Object.freeze()` do?",
+        answers: [
+          { text: "Prevents object modifications", correct: true },
+          { text: "Deletes the object", correct: false },
+          { text: "Makes the object read-only temporarily", correct: false },
+          { text: "Converts object to JSON", correct: false }
+        ]
+      },
+      {
+        question: "What does the 'new' keyword do in JavaScript?",
+        answers: [
+          { text: "Creates an instance of an object", correct: true },
+          { text: "Declares a variable", correct: false },
+          { text: "Clones an object", correct: false },
+          { text: "Creates a class", correct: false }
+        ]
+      },
+      {
+        question: "What does `Array.prototype.reduce()` do?",
+        answers: [
+          { text: "Executes a reducer function on each element", correct: true },
+          { text: "Filters elements", correct: false },
+          { text: "Sorts an array", correct: false },
+          { text: "Maps array values", correct: false }
+        ]
+      },
+      {
+        question: "What is event delegation?",
+        answers: [
+          { text: "Attaching a single event listener to a parent", correct: true },
+          { text: "Using inline event handlers", correct: false },
+          { text: "Attaching listeners to each child", correct: false },
+          { text: "Disabling event bubbling", correct: false }
+        ]
+      },
+      {
+  question: "What does the 'await' keyword do in JavaScript?",
+  answers: [
+    { text: "Pauses execution until a Promise is resolved", correct: true },
+    { text: "Stops the function", correct: false },
+    { text: "Creates a new thread", correct: false },
+    { text: "Executes code after delay", correct: false }
+  ]
+},
+{
+  question: "Which method is used to copy part of an array without modifying it?",
+  answers: [
+    { text: "slice()", correct: true },
+    { text: "splice()", correct: false },
+    { text: "split()", correct: false },
+    { text: "cut()", correct: false }
+  ]
+},
+{
+  question: "Which function is used to convert an object to JSON?",
+  answers: [
+    { text: "JSON.stringify()", correct: true },
+    { text: "JSON.parse()", correct: false },
+    { text: "toJSON()", correct: false },
+    { text: "objectify()", correct: false }
+  ]
+},
+{
+  question: "Which operator is used to check for nullish values?",
+  answers: [
+    { text: "??", correct: true },
+    { text: "&&", correct: false },
+    { text: "||", correct: false },
+    { text: "::", correct: false }
+  ]
+},
+{
+  question: "What does 'use strict' do?",
+  answers: [
+    { text: "Enables strict parsing and error handling", correct: true },
+    { text: "Disables debugging", correct: false },
+    { text: "Freezes variables", correct: false },
+    { text: "Increases performance", correct: false }
+  ]
+},
+{
+  question: "What is a 'generator' function?",
+  answers: [
+    { text: "A function that can pause execution and resume", correct: true },
+    { text: "A recursive function", correct: false },
+    { text: "A function that returns a Promise", correct: false },
+    { text: "An arrow function", correct: false }
+  ]
+},
+{
+  question: "How to define a generator function?",
+  answers: [
+    { text: "function* gen() {}", correct: true },
+    { text: "gen*() {}", correct: false },
+    { text: "function => {}", correct: false },
+    { text: "def generator()", correct: false }
+  ]
+},
+{
+  question: "What does `Promise.all()` do?",
+  answers: [
+    { text: "Waits for all promises to resolve or any to reject", correct: true },
+    { text: "Resolves only one fastest", correct: false },
+    { text: "Rejects immediately", correct: false },
+    { text: "Runs promises in sequence", correct: false }
+  ]
+},
+{
+  question: "Which method is used to stop an interval?",
+  answers: [
+    { text: "clearInterval()", correct: true },
+    { text: "stop()", correct: false },
+    { text: "cancel()", correct: false },
+    { text: "reset()", correct: false }
+  ]
+},
+{
+  question: "What will `[1, 2] == [1, 2]` return?",
+  answers: [
+    { text: "false", correct: true },
+    { text: "true", correct: false },
+    { text: "undefined", correct: false },
+    { text: "NaN", correct: false }
+  ]
+},
+{
+  question: "Which of the following is NOT a primitive type?",
+  answers: [
+    { text: "Object", correct: true },
+    { text: "Number", correct: false },
+    { text: "Boolean", correct: false },
+    { text: "String", correct: false }
+  ]
+},
+{
+  question: "What does `Object.assign()` do?",
+  answers: [
+    { text: "Copies values from one or more source objects to a target object", correct: true },
+    { text: "Combines arrays", correct: false },
+    { text: "Creates a new class", correct: false },
+    { text: "Deletes properties", correct: false }
+  ]
+},
+{
+  question: "Which function can execute JavaScript code from a string?",
+  answers: [
+    { text: "eval()", correct: true },
+    { text: "run()", correct: false },
+    { text: "execute()", correct: false },
+    { text: "parse()", correct: false }
+  ]
+},
+{
+  question: "How do you clone an object in JavaScript?",
+  answers: [
+    { text: "Object.assign({}, obj)", correct: true },
+    { text: "clone(obj)", correct: false },
+    { text: "obj.copy()", correct: false },
+    { text: "obj.clone()", correct: false }
+  ]
+},
+{
+  question: "What is tail call optimization?",
+  answers: [
+    { text: "Compiler optimization for recursive functions", correct: true },
+    { text: "Automatic closure removal", correct: false },
+    { text: "Memory leak fix", correct: false },
+    { text: "A new ES module feature", correct: false }
+  ]
+},
+{
+  question: "Which type of scope does JavaScript have?",
+  answers: [
+    { text: "Lexical scope", correct: true },
+    { text: "Block scope only", correct: false },
+    { text: "Function-only scope", correct: false },
+    { text: "Global-only scope", correct: false }
+  ]
+},
+{
+  question: "Which object handles mathematical constants and functions?",
+  answers: [
+    { text: "Math", correct: true },
+    { text: "Number", correct: false },
+    { text: "Calc", correct: false },
+    { text: "Stats", correct: false }
+  ]
+},
+{
+  question: "How do you round a number up to the nearest integer?",
+  answers: [
+    { text: "Math.ceil()", correct: true },
+    { text: "Math.floor()", correct: false },
+    { text: "Math.round()", correct: false },
+    { text: "Math.up()", correct: false }
+  ]
+},
+{
+  question: "Which statement terminates a loop?",
+  answers: [
+    { text: "break", correct: true },
+    { text: "exit", correct: false },
+    { text: "stop", correct: false },
+    { text: "halt", correct: false }
+  ]
+},
+{
+  question: "Which object is used for dates and times in JS?",
+  answers: [
+    { text: "Date", correct: true },
+    { text: "Time", correct: false },
+    { text: "Clock", correct: false },
+    { text: "Moment", correct: false }
+  ]
+},
+{
+  question: "How to define an arrow function?",
+  answers: [
+    { text: "() => {}", correct: true },
+    { text: "=> {}", correct: false },
+    { text: "function => {}", correct: false },
+    { text: "arrow() {}", correct: false }
+  ]
+},
+{
+  question: "Which keyword skips an iteration in a loop?",
+  answers: [
+    { text: "continue", correct: true },
+    { text: "break", correct: false },
+    { text: "exit", correct: false },
+    { text: "skip", correct: false }
+  ]
+},
+{
+  question: "What is the value of `typeof undefined`?",
+  answers: [
+    { text: "'undefined'", correct: true },
+    { text: "'null'", correct: false },
+    { text: "'object'", correct: false },
+    { text: "'NaN'", correct: false }
+  ]
+},
+{
+  question: "What does `document.querySelector()` return?",
+  answers: [
+    { text: "The first matching element", correct: true },
+    { text: "An array of all matches", correct: false },
+    { text: "A NodeList", correct: false },
+    { text: "null always", correct: false }
+  ]
+},
+{
+  question: "What is the purpose of `try...catch` block?",
+  answers: [
+    { text: "To handle runtime errors", correct: true },
+    { text: "To prevent code execution", correct: false },
+    { text: "To run in background", correct: false },
+    { text: "To terminate browser", correct: false }
+  ]
+},
+{
+  question: "How do you stop event bubbling?",
+  answers: [
+    { text: "event.stopPropagation()", correct: true },
+    { text: "event.preventDefault()", correct: false },
+    { text: "return false", correct: false },
+    { text: "event.cancel()", correct: false }
+  ]
+},
+{
+  question: "What is the output of `[1,2,3].map(x => x * 2)`?",
+  answers: [
+    { text: "[2,4,6]", correct: true },
+    { text: "[1,2,3]", correct: false },
+    { text: "[1,4,9]", correct: false },
+    { text: "[2,3,4]", correct: false }
+  ]
+},
+{
+  question: "What does `localStorage` store?",
+  answers: [
+    { text: "String key-value pairs", correct: true },
+    { text: "Only numbers", correct: false },
+    { text: "Cookies", correct: false },
+    { text: "Session data", correct: false }
+  ]
+},
+{
+  question: "Which function parses a string into a float?",
+  answers: [
+    { text: "parseFloat()", correct: true },
+    { text: "parseInt()", correct: false },
+    { text: "float()", correct: false },
+    { text: "Number.float()", correct: false }
+  ]
+},
+{
+  question: "What does `===` check?",
+  answers: [
+    { text: "Value and type", correct: true },
+    { text: "Only value", correct: false },
+    { text: "Only type", correct: false },
+    { text: "Reference", correct: false }
+  ]
+}
+
+
+     ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

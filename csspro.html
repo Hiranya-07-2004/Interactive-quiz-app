@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Pro Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>CSS Pro Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the default position value of an HTML element?",
+        answers: [
+          { text: "static", correct: true },
+          { text: "relative", correct: false },
+          { text: "absolute", correct: false },
+          { text: "inherit", correct: false }
+        ]
+      },
+      {
+        question: "Which property is used to make a grid layout?",
+        answers: [
+          { text: "display: grid", correct: true },
+          { text: "grid-template", correct: false },
+          { text: "layout-grid", correct: false },
+          { text: "template-grid", correct: false }
+        ]
+      },
+      {
+        question: "Which unit is relative to 1% of the viewport's height?",
+        answers: [
+          { text: "vh", correct: true },
+          { text: "vw", correct: false },
+          { text: "em", correct: false },
+          { text: "rem", correct: false }
+        ]
+      },
+      {
+        question: "What property sets the stacking order of elements?",
+        answers: [
+          { text: "z-index", correct: true },
+          { text: "stack", correct: false },
+          { text: "order", correct: false },
+          { text: "position", correct: false }
+        ]
+      },
+      {
+        question: "How do you create a custom CSS variable?",
+        answers: [
+          { text: "--main-color: #fff;", correct: true },
+          { text: "$main-color: #fff;", correct: false },
+          { text: "var(main-color, #fff);", correct: false },
+          { text: "@main-color: #fff;", correct: false }
+        ]
+      },
+      {
+        question: "How do you access a CSS variable?",
+        answers: [
+          { text: "var(--main-color)", correct: true },
+          { text: "get(--main-color)", correct: false },
+          { text: "$main-color", correct: false },
+          { text: "--main-color", correct: false }
+        ]
+      },
+      {
+        question: "Which value makes an element float to the right?",
+        answers: [
+          { text: "float: right", correct: true },
+          { text: "position: right", correct: false },
+          { text: "align: right", correct: false },
+          { text: "flex: right", correct: false }
+        ]
+      },
+      {
+        question: "Which pseudo-class selects the last child element?",
+        answers: [
+          { text: ":last-child", correct: true },
+          { text: ":final", correct: false },
+          { text: ":end", correct: false },
+          { text: ":nth-last-child", correct: false }
+        ]
+      },
+      {
+        question: "How do you select all <p> tags inside a <div>?",
+        answers: [
+          { text: "div p", correct: true },
+          { text: "div > p", correct: false },
+          { text: "div + p", correct: false },
+          { text: "div ~ p", correct: false }
+        ]
+      },
+      {
+        question: "Which property specifies how overflowed content is handled?",
+        answers: [
+          { text: "overflow", correct: true },
+          { text: "clip", correct: false },
+          { text: "hidden", correct: false },
+          { text: "content-wrap", correct: false }
+        ]
+      },
+      {
+  question: "What does `object-fit: cover` do in CSS?",
+  answers: [
+    { text: "Fills the container by cropping the image", correct: true },
+    { text: "Scales image without cropping", correct: false },
+    { text: "Aligns image to the top", correct: false },
+    { text: "Repeats image", correct: false }
+  ]
+},
+{
+  question: "Which property controls the flexibility of a flex item?",
+  answers: [
+    { text: "flex", correct: true },
+    { text: "align-items", correct: false },
+    { text: "flex-wrap", correct: false },
+    { text: "display", correct: false }
+  ]
+},
+{
+  question: "How do you make a website responsive?",
+  answers: [
+    { text: "Using media queries", correct: true },
+    { text: "Using fixed widths", correct: false },
+    { text: "Using inline styles", correct: false },
+    { text: "Using tables", correct: false }
+  ]
+},
+{
+  question: "Which property sets space between grid items?",
+  answers: [
+    { text: "gap", correct: true },
+    { text: "spacing", correct: false },
+    { text: "margin", correct: false },
+    { text: "border-spacing", correct: false }
+  ]
+},
+{
+  question: "How do you center a block element using margin?",
+  answers: [
+    { text: "margin: 0 auto;", correct: true },
+    { text: "padding: auto;", correct: false },
+    { text: "margin: center;", correct: false },
+    { text: "align: center;", correct: false }
+  ]
+},
+{
+  question: "What does `inherit` do in CSS?",
+  answers: [
+    { text: "Inherits value from parent", correct: true },
+    { text: "Copies styles from another class", correct: false },
+    { text: "Applies default value", correct: false },
+    { text: "Resets all styles", correct: false }
+  ]
+},
+{
+  question: "What value for `position` is used to place an element relative to its closest positioned ancestor?",
+  answers: [
+    { text: "absolute", correct: true },
+    { text: "fixed", correct: false },
+    { text: "relative", correct: false },
+    { text: "sticky", correct: false }
+  ]
+},
+{
+  question: "What property enables smooth transition for a property?",
+  answers: [
+    { text: "transition", correct: true },
+    { text: "animation", correct: false },
+    { text: "transform", correct: false },
+    { text: "ease", correct: false }
+  ]
+},
+{
+  question: "What value of `box-sizing` includes padding and border in the total width/height?",
+  answers: [
+    { text: "border-box", correct: true },
+    { text: "content-box", correct: false },
+    { text: "padding-box", correct: false },
+    { text: "margin-box", correct: false }
+  ]
+},
+{
+  question: "What is the default `display` value of a `<div>`?",
+  answers: [
+    { text: "block", correct: true },
+    { text: "inline", correct: false },
+    { text: "inline-block", correct: false },
+    { text: "flex", correct: false }
+  ]
+},
+{
+  question: "Which pseudo-element inserts content before an element?",
+  answers: [
+    { text: "::before", correct: true },
+    { text: "::after", correct: false },
+    { text: ":before", correct: false },
+    { text: ":first-line", correct: false }
+  ]
+},
+{
+  question: "What property changes the stacking order of flex items?",
+  answers: [
+    { text: "order", correct: true },
+    { text: "z-index", correct: false },
+    { text: "flex-flow", correct: false },
+    { text: "align-content", correct: false }
+  ]
+},
+{
+  question: "How do you make an element scrollable when content overflows?",
+  answers: [
+    { text: "overflow: auto", correct: true },
+    { text: "display: scroll", correct: false },
+    { text: "scroll: yes", correct: false },
+    { text: "overflow: visible", correct: false }
+  ]
+},
+{
+  question: "Which CSS function is used to apply transformations like rotate and scale?",
+  answers: [
+    { text: "transform()", correct: true },
+    { text: "rotate()", correct: false },
+    { text: "scale()", correct: false },
+    { text: "animate()", correct: false }
+  ]
+},
+{
+  question: "What does `clip-path` do?",
+  answers: [
+    { text: "Clips an element into a shape", correct: true },
+    { text: "Adds padding to images", correct: false },
+    { text: "Fixes overflow issues", correct: false },
+    { text: "Creates shadow boundaries", correct: false }
+  ]
+},
+{
+  question: "How do you make an element stay at the top during scroll?",
+  answers: [
+    { text: "position: sticky; top: 0;", correct: true },
+    { text: "position: fixed;", correct: false },
+    { text: "z-index: 999;", correct: false },
+    { text: "scroll-anchor: top;", correct: false }
+  ]
+},
+{
+  question: "Which property defines how nested flex items wrap?",
+  answers: [
+    { text: "flex-wrap", correct: true },
+    { text: "wrap-flex", correct: false },
+    { text: "flex-direction", correct: false },
+    { text: "overflow-wrap", correct: false }
+  ]
+},
+{
+  question: "Which CSS function is used for gradients?",
+  answers: [
+    { text: "linear-gradient()", correct: true },
+    { text: "color-blend()", correct: false },
+    { text: "shade()", correct: false },
+    { text: "gradient()", correct: false }
+  ]
+},
+{
+  question: "Which property adds shadow to boxes?",
+  answers: [
+    { text: "box-shadow", correct: true },
+    { text: "text-shadow", correct: false },
+    { text: "shadow", correct: false },
+    { text: "border-shadow", correct: false }
+  ]
+},
+{
+  question: "Which property makes an element appear semi-transparent?",
+  answers: [
+    { text: "opacity", correct: true },
+    { text: "visibility", correct: false },
+    { text: "alpha", correct: false },
+    { text: "blend", correct: false }
+  ]
+},
+{
+  question: "Which function repeats a background image?",
+  answers: [
+    { text: "background-repeat", correct: true },
+    { text: "background-clone", correct: false },
+    { text: "image-loop", correct: false },
+    { text: "repeat-image", correct: false }
+  ]
+},
+{
+  question: "Which keyword stops inheritance of CSS properties?",
+  answers: [
+    { text: "initial", correct: true },
+    { text: "unset", correct: false },
+    { text: "reset", correct: false },
+    { text: "disable", correct: false }
+  ]
+},
+{
+  question: "How do you delay a transition?",
+  answers: [
+    { text: "transition-delay", correct: true },
+    { text: "animation-delay", correct: false },
+    { text: "delay-timing", correct: false },
+    { text: "duration-delay", correct: false }
+  ]
+},
+{
+  question: "Which property defines custom font imports?",
+  answers: [
+    { text: "@font-face", correct: true },
+    { text: "@import-font", correct: false },
+    { text: "@font", correct: false },
+    { text: "font-load", correct: false }
+  ]
+},
+{
+  question: "Which property aligns flex items horizontally?",
+  answers: [
+    { text: "justify-content", correct: true },
+    { text: "align-items", correct: false },
+    { text: "flex-direction", correct: false },
+    { text: "align-content", correct: false }
+  ]
+},
+{
+  question: "Which CSS unit is not relative?",
+  answers: [
+    { text: "px", correct: true },
+    { text: "em", correct: false },
+    { text: "rem", correct: false },
+    { text: "%", correct: false }
+  ]
+},
+{
+  question: "Which shorthand sets top, right, bottom, left margins?",
+  answers: [
+    { text: "margin", correct: true },
+    { text: "padding", correct: false },
+    { text: "spacing", correct: false },
+    { text: "border", correct: false }
+  ]
+},
+{
+  question: "What does `calc()` function do?",
+  answers: [
+    { text: "Performs calculations in CSS", correct: true },
+    { text: "Calculates padding only", correct: false },
+    { text: "Evaluates colors", correct: false },
+    { text: "Used in animations", correct: false }
+  ]
+},
+{
+  question: "How do you group multiple selectors with the same style?",
+  answers: [
+    { text: "Use comma (,) between selectors", correct: true },
+    { text: "Use `+` between selectors", correct: false },
+    { text: "Use `|` between selectors", correct: false },
+    { text: "Use semicolon (;)", correct: false }
+  ]
+},
+{
+  question: "What value of `overflow` hides overflowing content?",
+  answers: [
+    { text: "hidden", correct: true },
+    { text: "visible", correct: false },
+    { text: "scroll", correct: false },
+    { text: "auto", correct: false }
+  ]
+},
+{
+  question: "How do you apply CSS to all `<a>` tags inside a `<nav>`?",
+  answers: [
+    { text: "nav a", correct: true },
+    { text: "a nav", correct: false },
+    { text: "nav > a", correct: false },
+    { text: "nav+a", correct: false }
+  ]
+}
+
+     ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>

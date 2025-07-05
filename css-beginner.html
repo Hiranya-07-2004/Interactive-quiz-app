@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Beginner Quiz</title>
+  <link rel="stylesheet" href="quiz-style.css" />
+</head>
+<body>
+  <h1>CSS Beginner Quiz</h1>
+  <div class="quiz-box">
+    <div id="question">Question appears here</div>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What does CSS stand for?",
+        answers: [
+          { text: "Cascading Style Sheets", correct: true },
+          { text: "Color Style Sheets", correct: false },
+          { text: "Creative Style Syntax", correct: false },
+          { text: "Computer Style Sheets", correct: false }
+        ]
+      },
+      {
+        question: "Which HTML tag is used to link CSS?",
+        answers: [
+          { text: "<link>", correct: true },
+          { text: "<style>", correct: false },
+          { text: "<css>", correct: false },
+          { text: "<script>", correct: false }
+        ]
+      },
+      {
+        question: "Which CSS property is used to change text color?",
+        answers: [
+          { text: "color", correct: true },
+          { text: "text-color", correct: false },
+          { text: "font-color", correct: false },
+          { text: "style-color", correct: false }
+        ]
+      },
+      {
+        question: "Which symbol is used to select an ID in CSS?",
+        answers: [
+          { text: "#", correct: true },
+          { text: ".", correct: false },
+          { text: "@", correct: false },
+          { text: "*", correct: false }
+        ]
+      },
+      {
+        question: "What is the correct syntax to select all `<p>` elements?",
+        answers: [
+          { text: "p { }", correct: true },
+          { text: "#p", correct: false },
+          { text: ".p", correct: false },
+          { text: "<p>", correct: false }
+        ]
+      },
+      {
+        question: "Which property controls the size of text?",
+        answers: [
+          { text: "font-size", correct: true },
+          { text: "text-style", correct: false },
+          { text: "text-size", correct: false },
+          { text: "font-style", correct: false }
+        ]
+      },
+      {
+        question: "Which value makes an element invisible but keeps its space?",
+        answers: [
+          { text: "visibility: hidden", correct: true },
+          { text: "display: none", correct: false },
+          { text: "opacity: 0", correct: false },
+          { text: "hidden: true", correct: false }
+        ]
+      },
+      {
+        question: "How do you make a list display horizontally?",
+        answers: [
+          { text: "display: inline", correct: true },
+          { text: "list-direction: row", correct: false },
+          { text: "float: right", correct: false },
+          { text: "position: absolute", correct: false }
+        ]
+      },
+      {
+        question: "Which property adds space inside an element?",
+        answers: [
+          { text: "padding", correct: true },
+          { text: "margin", correct: false },
+          { text: "spacing", correct: false },
+          { text: "border", correct: false }
+        ]
+      },
+      {
+        question: "How do you make text bold in CSS?",
+        answers: [
+          { text: "font-weight: bold", correct: true },
+          { text: "text-style: bold", correct: false },
+          { text: "font: strong", correct: false },
+          { text: "font-bold: true", correct: false }
+        ]
+      }
+    ];
+
+    const questionElement = document.getElementById("question");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextButton = document.getElementById("next-btn");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      nextButton.innerText = "Next";
+      scoreElement.innerHTML = "";
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const question = questions[currentQuestionIndex];
+      questionElement.innerText = question.question;
+      question.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerText = answer.text;
+        button.classList.add("btn");
+        if (answer.correct) button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextButton.style.display = "none";
+      while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
+      }
+    }
+
+    function selectAnswer(e) {
+      const selectedBtn = e.target;
+      const isCorrect = selectedBtn.dataset.correct === "true";
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("wrong");
+      }
+
+      Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
+        if (button.dataset.correct === "true") {
+          button.classList.add("correct");
+        }
+      });
+
+      nextButton.style.display = "inline-block";
+    }
+
+    function showScore() {
+      resetState();
+      questionElement.innerText = `🎉 Your score: ${score} / ${questions.length}`;
+      nextButton.innerText = "Restart";
+      nextButton.style.display = "inline-block";
+    }
+
+    nextButton.addEventListener("click", () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    startQuiz();
+  </script>
+</body>
+</html>
